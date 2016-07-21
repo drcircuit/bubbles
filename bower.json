@@ -1,0 +1,23 @@
+{
+  "name": "bubbles",
+  "description": "A graphical demo of circles",
+  "main": "index.html",
+  "authors": [
+    "Espen Sande Larsen"
+  ],
+  "license": "GPL-3.0",
+  "keywords": [
+    "javascript",
+    "graphics",
+    "demo"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
