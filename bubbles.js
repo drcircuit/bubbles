@@ -1,7 +1,7 @@
 /**
  * Created by Espen on 7/21/2016.
  */
-var bubbles = function () {
+(function() {
     var window = document.defaultView || document.parentWindow;
     document.body.style.margin = 0;
     document.body.style.padding = 0;
@@ -187,4 +187,4 @@ var bubbles = function () {
 
     animate();
 
-}();
+})();
