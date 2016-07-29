@@ -366,20 +366,23 @@ var startGame = function (name) {
     addBubble(makeBubble(randomPosition()));
 
     gui.getViewCanvas().addEventListener('click', function (event) {
+        event.preventDefault();g
         addBubble(makeBubble(event.pageX, event.pageY), 'player');
     }, false);
     gui.getViewCanvas().addEventListener('touchmove', function (event) {
-        if (!event.event || !event.event.length) {
+        event.preventDefault();
+        if (!event.touches || !event.touches.length) {
             event.preventDefault();
             return;
         }
-        for (var i = 0; i < event.event.length; i += 2) {
+        for (var i = 0; i < event.touches.length; i += 2) {
             var touch = event.touches[i];
-            addBubble(makeBubble(touch.pageX, touch.pageY), 'cpu');
+            addBubble(makeBubble(touch.pageX, touch.pageY), 'player');
         }
-        event.preventDefault();
+
     });
     gui.getViewCanvas().addEventListener('touchend', function (event) {
+        event.preventDefault();
         if (!event.changedTouches || !event.changedTouches.length) {
             event.preventDefault();
             return;
@@ -388,7 +391,6 @@ var startGame = function (name) {
             var touch = event.changedTouches[i];
             addBubble(makeBubble(touch.pageX, touch.pageY), 'player');
         }
-        event.preventDefault();
     });
     gui.getViewCanvas().addEventListener('contextmenu', function (e) {
         e.preventDefault();
