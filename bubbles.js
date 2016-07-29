@@ -37,7 +37,6 @@ var colors = {
     },
     redshift: function (distance) {
         var freq = 1 / Math.pow(distance, 2);
-        //var shift = Math.round(distance / canvas.height * 100);
         return {
             r: function (r) {
                 return Math.floor(Math.sin(freq * r) * 128 + 127);
