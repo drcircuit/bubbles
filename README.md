@@ -7,9 +7,9 @@ I expanded on my original graphical demo using offscreen rendering. Works both w
 Demo is now semi gamified.
 
 ###TODO:
-*Implement loose condition
-*Implement harder to score as levels progress
-*Implement user input own name
-*Implement user selectable levels of difficulty
-*Implement saving
-*Implement "Mission Mode"
+* Implement loose condition
+* Implement harder to score as levels progress
+* Implement user input own name
+* Implement user selectable levels of difficulty
+* Implement saving
+* Implement "Mission Mode"
