@@ -228,19 +228,18 @@ var startGame = function (name) {
         bubble.style.type = type ? type : 'cpu';
         var isHit = false;
         if (bubble.style.type !== 'cpu') {
-            var indices = collidesWith(bubble);
-            if (indices.length > 0) {
+            var crashBubbles = collidesWith(bubble);
+            if (crashBubbles.length > 0) {
                 isHit = true;
             }
         }
         if (!isHit) {
             game.pond[next] = bubble;
         } else {
-            indices.forEach(function (index) {
-                if (index < game.pond.length && game.pond[index]) {
-                    scoreCollision(bubble, game.pond[index]);
-                    removeFromPond(index);
-                }
+            crashBubbles.forEach(function (cb) {
+                    scoreCollision(bubble, cb);
+                    removeBubble(bubble);
+                    removeBubble(cb);
             });
         }
     }
@@ -298,19 +297,24 @@ var startGame = function (name) {
     }
 
 
-    function collidesWith(currentBubble, index) {
+    function collidesWith(currentBubble) {
         var result = [];
         game.pond.forEach(function (bubble, bubbleIndex) {
-            if (bubbleIndex !== index && currentBubble.hitTest(bubble)) {
-                result.push(bubbleIndex);
+            if (bubble !== currentBubble && currentBubble.hitTest(bubble)) {
+                result.push(bubble);
             }
         });
         return result;
     }
-
+    function removeBubble(bubble){
+        var i = game.pond.indexOf(bubble);
+        if(i > -1){
+            game.pond.splice(i,1);
+        }
+    }
     function removeFromPond(collisionIndex, index) {
         if (collisionIndex > -1) {
-            game.pond.splice(collisionIndex, 1);
+            game.pond.splice(collisionIndex, 1);;
         }
         if (index !== undefined && index > -1) {
             game.pond.splice(index, 1);
@@ -322,13 +326,12 @@ var startGame = function (name) {
     }
 
     function handleCollisions(currentBubble, index) {
-        var collisionIndices = collidesWith(currentBubble, index);
-        if (collisionIndices.length > 0) {
-            collisionIndices.forEach(function (colIndex) {
-                if (inPond(index, colIndex)) {
-                    scoreCollision(game.pond[colIndex], currentBubble);
-                    removeFromPond(colIndex, index);
-                }
+        var collisions = collidesWith(currentBubble);
+        if (collisions.length > 0) {
+            collisions.forEach(function (cb) {
+                    scoreCollision(currentBubble, cb);
+                    removeBubble(cb);
+                    removeBubble(currentBubble);
             });
         }
     }
